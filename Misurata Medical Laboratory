@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويل بنكي | مختبر مصراتة المركزي</title>
+
+    <!-- Google Fonts: Cairo (Arabic) + fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0d3b66;
+            --accent: #c8960c;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #1a1a2e;
+            --danger: #8b1a1a;
+            --danger-bg: #fff5f5;
+            --border-radius: 8px;
+            --font-main: 'Cairo', 'Tajawal', 'Segoe UI', 'Tahoma', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: #e8ecf1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+            color: var(--dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── A4 Poster Container ── */
+        .poster {
+            width: 210mm;
+            height: 297mm;
+            max-height: 297mm;
+            background: var(--white);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border-radius: 2px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #0d3b66 0%, #0a2d4d 40%, #0d3b66 100%);
+            color: var(--white);
+            padding: 12px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.025);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-icon {
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            margin-bottom: 4px;
+            font-size: 20px;
+            line-height: 38px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: var(--font-main);
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+            margin: 2px 0;
+            line-height: 1.3;
+        }
+
+        .header .subtitle {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.2px;
+            line-height: 1.3;
+        }
+
+        .header .lab-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #1a1a2e;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 14px;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .lab-name-en {
+            font-size: 8px;
+            font-weight: 400;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+            direction: ltr;
+            display: block;
+        }
+
+        /* ── Accent Strip ── */
+        .accent-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #c8960c 0%, #e0b84c 30%, #c8960c 60%, #a67c0a 100%);
+            flex-shrink: 0;
+        }
+
+        /* ── Main Content ── */
+        .main-content {
+            padding: 12px 20px;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        /* ── Bank Info Section ── */
+        .bank-section {
+            display: flex;
+            gap: 16px;
+            align-items: stretch;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+        }
+
+        .bank-info-card {
+            flex: 1 1 auto;
+            min-width: 0;
+            background: var(--off-white);
+            border: 1.5px solid #dee2e6;
+            border-radius: var(--border-radius);
+            padding: 14px 14px;
+        }
+
+        .bank-info-card .card-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .bank-info-card .bank-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bank-info-card .bank-name .bank-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #dde1e6;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-row .info-icon {
+            width: 26px;
+            height: 26px;
+            background: #e8f0f8;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        .info-row .info-text {
+            flex: 1;
+            min-width: 0;
+        }
+        .info-row .info-label {
+            font-size: 8px;
+            color: var(--gray);
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+        .info-row .info-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            word-break: break-all;
+            letter-spacing: 0.2px;
+            line-height: 1.4;
+        }
+        .info-row .info-value.account-number {
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 14px;
+            letter-spacing: 0.7px;
+            background: #fff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            display: inline-block;
+            direction: ltr;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        /* ── QR Code Card (Account) ── */
+        .qr-card {
+            flex: 0 0 auto;
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px dashed #c8d6e5;
+            border-radius: var(--border-radius);
+            padding: 10px 8px 8px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .qr-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .qr-card .qr-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 5px;
+            letter-spacing: 0.2px;
+            line-height: 1.3;
+        }
+        .qr-card .qr-sub-label {
+            font-size: 7px;
+            color: var(--gray);
+            margin-top: 1px;
+            letter-spacing: 0.2px;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1.5px dashed #dde1e6;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        /* ── WhatsApp Section ── */
+        .whatsapp-section {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: var(--border-radius);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-info {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .whatsapp-info h3 {
+            font-size: 14px;
+            color: #166534;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .whatsapp-info h3 .wa-icon {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .whatsapp-info .wa-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #166534;
+            direction: ltr;
+            display: inline-block;
+            letter-spacing: 0.8px;
+            background: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1.5px solid #bbf7d0;
+        }
+        .whatsapp-info .wa-instruction {
+            font-size: 10px;
+            color: #3b5e3b;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .wa-number-wrap {
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 2px;
+            font-size: 12px;
+        }
+
+        .whatsapp-qr {
+            flex: 0 0 auto;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .whatsapp-qr img {
+            width: 100px;
+            height: 100px;
+            border-radius: 6px;
+            border: 3px solid #25d366;
+            display: block;
+        }
+        .whatsapp-qr .qr-tag {
+            font-size: 8px;
+            font-weight: 700;
+            color: #166534;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+        }
+
+        /* ── Warning Box ── */
+        .warning-box {
+            background: var(--danger-bg);
+            border: 2px solid #f5c6cb;
+            border-right: 4px solid var(--danger);
+            border-radius: var(--border-radius);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .warning-box .warning-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .warning-box .warning-text {
+            font-size: 10px;
+            color: #5c1a1a;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        .warning-box .warning-text strong {
+            color: var(--danger);
+            font-size: 10px;
+            display: block;
+            margin-bottom: 1px;
+        }
+        .warning-box .warning-text span {
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 6px 20px;
+            font-size: 8px;
+            color: #999;
+            border-top: 1px solid #eee;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+            line-height: 1.4;
+        }
+        .footer .footer-lab {
+            font-weight: 600;
+            color: #555;
+            font-size: 9px;
+        }
+
+        /* ── Print Styles ── */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                display: block;
+                min-height: auto;
+            }
+
+            .poster {
+                width: 210mm;
+                height: 297mm;
+                max-height: 297mm;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0 auto;
+                page-break-after: avoid;
+                overflow: hidden;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background: #0d3b66 !important;
+                color: #fff !important;
+            }
+
+            .accent-strip,
+            .whatsapp-section,
+            .warning-box,
+            .bank-info-card,
+            .qr-card img,
+            .whatsapp-qr img,
+            .info-row .info-value.account-number {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .whatsapp-section {
+                background: #f0fdf4 !important;
+            }
+
+            .warning-box {
+                background: #fff5f5 !important;
+            }
+        }
+
+        /* ── Small screen fallback (mobile view) ── */
+        @media screen and (max-width: 820px) {
+            .poster {
+                width: 100%;
+                height: auto;
+                max-height: none;
+            }
+            .bank-section {
+                flex-direction: column;
+            }
+            .qr-card {
+                width: 100%;
+                flex-direction: row;
+                gap: 12px;
+                justify-content: center;
+                padding: 10px;
+            }
+            .qr-card img {
+                width: 90px;
+                height: 90px;
+            }
+            .whatsapp-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .whatsapp-qr img {
+                width: 90px;
+                height: 90px;
+            }
+            .header h1 {
+                font-size: 16px;
+            }
+            .main-content {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster">
+
+        <!-- ═══════════ HEADER ═══════════ -->
+        <div class="header">
+            <div class="header-icon">🏥</div>
+            <h1>معلومات الدفع والتحويل البنكي</h1>
+            <p class="subtitle">لتسديد رسوم الخدمات المخبرية عبر مصرف الجمهورية</p>
+            <span class="lab-badge">🔬 مختبر مصراتة المركزي</span>
+            <span class="lab-name-en">Misurata Medical Laboratory</span>
+        </div>
+
+        <!-- ═══════════ ACCENT STRIP ═══════════ -->
+        <div class="accent-strip"></div>
+
+        <!-- ═══════════ MAIN CONTENT ═══════════ -->
+        <div class="main-content">
+
+            <!-- ── Bank Info + Account QR ── -->
+            <div class="bank-section">
+                <div class="bank-info-card">
+                    <span class="card-label">🏦 معلومات الحساب البنكي</span>
+                    <div class="bank-name">
+                        <span class="bank-icon">🏛️</span>
+                        مصرف الجمهورية
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon">📋</span>
+                        <div class="info-text">
+                            <div class="info-label">رقم الحساب</div>
+                            <div class="info-value account-number">118202000010443</div>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon">👤</span>
+                        <div class="info-text">
+                            <div class="info-label">اسم صاحب الحساب</div>
+                            <div class="info-value">مصطفى محمد مفتاح دراه</div>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-icon">🏦</span>
+                        <div class="info-text">
+                            <div class="info-label">المصرف</div>
+                            <div class="info-value">مصرف الجمهورية</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account QR Code -->
+                <div class="qr-card">
+                    <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&bgcolor=ffffff&color=0d3b66&format=png&qzone=2&data=%D9%85%D8%B5%D8%B1%D9%81%20%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9%0A%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D8%AD%D8%B3%D8%A7%D8%A8%3A%20118202000010443%0A%D8%A7%D8%B3%D9%85%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%81%D9%8A%D8%AF%3A%20%D9%85%D8%B5%D8%B7%D9%81%D9%89%20%D9%85%D8%AD%D9%85%D8%AF%20%D9%85%D9%81%D8%AA%D8%A7%D8%AD%20%D8%AF%D8%B1%D8%A7%D9%87"
+                    alt="QR Code - بيانات الحساب"
+                    width="110" height="110"
+                    loading="eager"
+                    crossorigin="anonymous"
+                    >
+                    <span class="qr-label">📱 امسح رمز QR</span>
+                    <span class="qr-sub-label">للحصول على بيانات الحساب</span>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- ── WhatsApp Section ── -->
+            <div class="whatsapp-section">
+                <div class="whatsapp-info">
+                    <h3>
+                        <span class="wa-icon">💬</span>
+                        إرسال إيصال التحويل عبر واتساب
+                    </h3>
+                    <p class="wa-number-wrap">
+                        رقم الواتساب:
+                        <span class="wa-number">0913853868</span>
+                    </p>
+                    <p class="wa-instruction">
+                        ✅ بعد إتمام عملية التحويل البنكي، يرجى <strong>إرسال إيصال PDF الأصلي</strong>
+                        (الصادر من المصرف) إلى رقم الواتساب أعلاه.
+                        <br>📲 يمكنك مسح رمز QR أدناه للدخول مباشرة إلى المحادثة.
+                    </p>
+                </div>
+                <div class="whatsapp-qr">
+                    <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&bgcolor=ffffff&color=25d366&format=png&qzone=2&data=https%3A%2F%2Fwa.me%2F218913853868%3Ftext%3D%D8%A5%D9%8A%D8%B5%D8%A7%D9%84%2520%D8%AA%D8%AD%D9%88%D9%8A%D9%84%2520%D8%A8%D9%86%D9%83%D9%8A%2520-%2520%D9%85%D8%AE%D8%AA%D8%A8%D8%B1%2520%D9%85%D8%B5%D8%B1%D8%A7%D8%AA%D8%A9%2520%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2%D9%8A"
+                    alt="QR Code - واتساب"
+                    width="100" height="100"
+                    loading="eager"
+                    crossorigin="anonymous"
+                    >
+                    <span class="qr-tag">💚 امسح لفتح الواتساب</span>
+                </div>
+            </div>
+
+            <!-- ── Warning Box ── -->
+            <div class="warning-box">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-text">
+                    <strong>🔴 تنبيه مهم - للحفاظ على حقوق جميع ا
